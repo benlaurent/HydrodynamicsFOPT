@@ -14,9 +14,26 @@ from WallGo import Fields, Grid, Particle, BoltzmannBackground, BoltzmannSolver
 
 # Path to the directory containing the collision integrals
 # These can be computed with WallGoCollision
-collisionPath = Path('/Users/benoitlaurent/Documents/git/boltzmann/EntropyProduction/collisions_tests_new/CollisionOutput_N11_massive+2')
+collisionPath = Path('/Users/benoitlaurent/Documents/git/boltzmann/EntropyProduction/collisions_tests_new/CollisionOutput_N11_new_massive+')
 
 # Create the Particle objects
+
+# Left handed bottom quark
+def bottomMsqVacuum(fields: Fields) -> Fields:
+    return (4.3*fields.getField(0)/246)**2
+def bottomMsqDerivative(fields: Fields) -> Fields:
+    return np.transpose(
+        [2*(4.3/246)**2*fields.getField(0), 0 * fields.getField(1)]
+    )
+
+bottomQuarkL = Particle(
+    name="BottomL",
+    index=2,
+    msqVacuum=bottomMsqVacuum,
+    msqDerivative=bottomMsqDerivative,
+    statistics="Fermion",
+    totalDOFs=6,
+)
 
 # Left and right handed top quark
 def topMsqVacuum(fields: Fields) -> Fields:

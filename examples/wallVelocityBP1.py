@@ -6,17 +6,17 @@ The model considered here corresponds to BP1 in 2609.xxxxx.
 from HydrodynamicsFOPT import Hydrodynamics, EntropyNLTE, EntropyBallistic, EntropyInterpolated
 
 # WallGo result
-vwWG = 0.347
+vwWG = 0.421
 
 # Hydrodynamics parameters corresponding to BP1
-Tn = 121.48
-vn = 176.0041332244873
-alN = 0.004777442806825361
-psi = 0.9877384069928336
-cb2 = 0.3307916625223334
-cs2 = 0.33334191365999344
+Tn = 121.72949518060952
+vn = 1.75259083e+02
+alN = 0.004659633204615322
+psi = 0.9880206691999793
+cb2 = 0.3258571764630716
+cs2 = 0.33309760405558214
 gstar = 107.75
-wallWidth = 0.037086114257975665 #TODO: Update this!!!
+wallWidth = 0.044
 
 # Creating the Hydrodynamics object
 hydro = Hydrodynamics(alN, cb2, cs2, psi, Tn)
@@ -26,6 +26,8 @@ hydro = Hydrodynamics(alN, cb2, cs2, psi, Tn)
 mTopL = 173*vn/246
 mTopR = 173*vn/246
 mW = 80.34*vn/246
+# W thermal mass
+mWT = 0.6256669389784285*Tn
 
 # Degrees of freedom
 dofTopL = 6
@@ -38,13 +40,13 @@ statisticTopR = 1
 statisticW = -1
 
 # Relaxation time tau (in units of 1/Tn)
-tauTopL = 20.79132841
-tauTopR = 58.98017835
-tauW = 80.25163104
+tauTopL = 19.58409902
+tauTopR = 59.16350693
+tauW = 127.88493832
 
 # Creating the Entropy objects
-entropyNLTE = EntropyNLTE(massesSymmetricPhase=[0, 0, 0],
-                          massesBrokenPhase=[mTopL, mTopR, mW],
+entropyNLTE = EntropyNLTE(massesSymmetricPhase=[0, 0, mWT],
+                          massesBrokenPhase=[mTopL, mTopR, (mW**2+mWT**2)**0.5],
                           dofs=[dofTopL, dofTopR, dofW],
                           statistics=[statisticTopL, statisticTopR, statisticW],
                           tau=[tauTopL, tauTopR, tauW],
@@ -52,15 +54,15 @@ entropyNLTE = EntropyNLTE(massesSymmetricPhase=[0, 0, 0],
                           Tn=Tn,
                           gstar=gstar,
                           cs2=cs2)
-entropyBall = EntropyBallistic(massesSymmetricPhase=[0, 0, 0],
-                               massesBrokenPhase=[mTopL, mTopR, mW],
+entropyBall = EntropyBallistic(massesSymmetricPhase=[0, 0, mWT],
+                               massesBrokenPhase=[mTopL, mTopR, (mW**2+mWT**2)**0.5],
                                dofs=[dofTopL, dofTopR, dofW],
                                statistics=[statisticTopL, statisticTopR, statisticW],
                                Tn=Tn,
                                gstar=gstar,
                                cs2=cs2)
-entropyInterp = EntropyInterpolated(massesSymmetricPhase=[0, 0, 0],
-                                    massesBrokenPhase=[mTopL, mTopR, mW],
+entropyInterp = EntropyInterpolated(massesSymmetricPhase=[0, 0, mWT],
+                                    massesBrokenPhase=[mTopL, mTopR, (mW**2+mWT**2)**0.5],
                                     dofs=[dofTopL, dofTopR, dofW],
                                     statistics=[statisticTopL, statisticTopR, statisticW],
                                     tau=[tauTopL, tauTopR, tauW],
