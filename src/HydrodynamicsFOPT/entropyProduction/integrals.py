@@ -120,8 +120,6 @@ def nlteIntegral(m1: float, m2: float, Tp: float, Tm: float, vp: float, vm: floa
         Particle statistic (1 for fermions, -1 for bosons)
     L : float
         Wall width
-    N : int, optional
-        Number of grid points in the z and p directions. Default is 100.
 
     """
     dmsq = lambda m: -4*m*(m-m1)*(m-m2)/(L*(m1-m2))

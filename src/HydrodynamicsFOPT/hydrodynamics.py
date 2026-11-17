@@ -475,6 +475,7 @@ class Hydrodynamics:
         MatchingResult
         
         """
+        vw = min(vw, 1-1e-10)
         if vw < self.cs or (self.vJDirect is not None and vw < self.vJDirect):
             matching = self.matchingWithFrontWave(vw)
         else:

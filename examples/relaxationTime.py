@@ -14,7 +14,7 @@ from WallGo import Fields, Grid, Particle, BoltzmannBackground, BoltzmannSolver
 
 # Path to the directory containing the collision integrals
 # These can be computed with WallGoCollision
-collisionPath = Path('/Users/benoitlaurent/Documents/git/boltzmann/EntropyProduction/collisions_tests_new/CollisionOutput_N11_new_massive+')
+collisionPath = Path(__file__).resolve().parent / 'collisions' / 'Collision_QCD+Weak'
 
 # Create the Particle objects
 
